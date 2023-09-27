@@ -1,0 +1,6 @@
+data/*
+data_email/*
+fit/*
+__pycache__/*
+*.pyc
+*.DS_Store
