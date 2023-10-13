@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 
+# functions for fitting with scipy
+
 
 def func_2(x, a, b, c):
     """model that uses 1D coordinates to predict gene expression"""
@@ -47,3 +49,18 @@ def ind_z(list, gene_name):
     takes just a list and returns the index of the gene in the list
     """
     return np.where(list == gene_name)[0][0]
+
+
+def gene_pos(adata, gene_name, obs_field="x"):
+    """
+    avarages the expression of a gene across all cells in a given assigned field
+    """
+    v = adata[:, gene_name].X
+    pos = adata.obs[obs_field]
+    pos_un = pos.unique()
+    out = np.zeros(pos_un.shape)
+
+    for i, p in enumerate(pos_un):
+        out[i] = np.mean(v[pos == p])
+
+    return out
